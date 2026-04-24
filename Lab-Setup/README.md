@@ -1,4 +1,4 @@
-#Lab Environment Setup
+# Lab Environment Setup
 
 ## Tools Required
 - VirtualBox (free) - https://www.virtualbox.org/
