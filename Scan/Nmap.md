@@ -36,11 +36,11 @@
 
 ### Observations
 
-- The system is exposed a large number of open ports, indicating a broad attack surface.
-- FTP service port 21 (vsftpd 2.3.4) is known to contain a backdoor vulnerability
-- Telnet (port 23) and r-services (port 512-514) transmit data in plaintext making it insecure
-- Multiple open database services ( MYSQL on 3306 and PostgreSQL on 5432) are potential access points for attackers
-- Web services (port 80 and 8180) may host vulnerable applications that can be exploited
+- The system is exposed to many open ports and insecure services, leaving it extremely vulnerable.
+- FTP service port 21 (vsftpd 2.3.4) is known to contain a backdoor vulnerability.
+- Telnet (port 23) and r-services (port 512-514) transmit data in plaintext making it insecure.
+- Multiple open database services ( MYSQL on 3306 and PostgreSQL on 5432) are potential access points for attackers.
+- Web services (port 80 and 8180) may host vulnerable applications that can be exploited.
 
 ---
 ### Raw Scan Output
