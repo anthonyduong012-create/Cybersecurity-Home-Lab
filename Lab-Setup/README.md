@@ -1,6 +1,6 @@
 #Lab Environment Setup
 
-##Tools Required
+## Tools Required
 - VirtualBox (free) - https://www.virtualbox.org/
 - Kali Linux - https://www.kali.org/
 - Metasploitable 2 - https://docs.rapid7.com/metasploit/metasploitable-2/
