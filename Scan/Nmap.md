@@ -6,33 +6,41 @@
 
 ### Open Ports
 
-- **21/tcp** - FTP (vsftpd 2.3.4)
-- **22/tcp** - SSH 
-- **23/tcp** - Telnet
-- **25/tcp** - SMTP
-- **53/tcp** - DNS
-- **80/tcp** - HTTP
-- **111/tcp** - RPCBind
-- **139/tcp** - NetBiOS-ssn
-- **445/tcp** - NetBiOS-ssn
-- **512/tcp** - exec
-- **513/tcp** - login
-- **514/tcp** - SHELL
-- **1099/tcp** - java-rmi
-- **1524/tcp** - bindshell
-- **2049/tcp** - NFS
-- **2121/tcp** - FTP
-- **3306/tcp** - MYSQL
-- **5432/tcp** - postgresql
-- **5900/tcp** - VNC
-- **6000/tcp** - X11
-- **6667/tcp** - IRC
-- **8009/tcp** - ajp13
-- **8180/tcp** - HTTP
+| Port | Service | Version/Name | Description |
+|------|--------|--------------|------------|
+| 21   | FTP    | vsftpd 2.3.4 | File transfer service; version is known to have a backdoor vulnerability |
+| 22   | SSH    | OpenSSH      | Secure remote login and command execution |
+| 23   | Telnet | telnetd      | Unencrypted remote access (insecure) |
+| 25   | SMTP   | Postfix      | Handles sending email between servers |
+| 53   | DNS    | BIND         | Resolves domain names to IP addresses |
+| 80   | HTTP   | Apache       | Web server hosting websites/applications |
+| 111  | RPCBind | rpcbind     | Maps RPC services to ports (used by NFS) |
+| 139  | NetBIOS | netbios-ssn | Windows file/printer sharing (legacy) |
+| 445  | SMB    | netbios-ssn  | Network file sharing; common attack target |
+| 512  | exec   | rexecd       | Remote command execution (insecure r-service) |
+| 513  | login  | rlogin       | Remote login service (insecure) |
+| 514  | shell  | rshd         | Remote shell access (insecure) |
+| 1099 | Java RMI | grmiregistry | Java remote method invocation service |
+| 1524 | bindshell | root shell | Backdoor shell access (intentionally vulnerable) |
+| 2049 | NFS    | nfs          | Network file system for file sharing |
+| 2121 | FTP    | ProFTPD      | Alternate FTP service |
+| 3306 | MySQL  | mysql        | Database service for storing application data |
+| 5432 | PostgreSQL | postgres | Relational database service |
+| 5900 | VNC    | vnc          | Remote desktop access |
+| 6000 | X11    | X server     | Linux graphical display service |
+| 6667 | IRC    | UnrealIRCd   | Internet Relay Chat service |
+| 8009 | AJP13  | Apache JServ | Connector between web server and Tomcat |
+| 8180 | HTTP   | Tomcat       | Web server for Java applications |
 
 ---
 
 ### Observations
+
+- The system is exposed a large number of open ports, indicating a broad attack surface.
+- FTP service port 21 (vsftpd 2.3.4) is known to contain a backdoor vulnerability
+- Telnet (port 23) and r-services (port 512-514) transmit data in plaintext making it insecure
+- Multiple open database services ( MYSQL on 3306 and PostgreSQL on 5432) are potential access points for attackers
+- Web services (port 80 and 8180) may host vulnerable applications that can be exploited
 
 ---
 ### Raw Scan Output
