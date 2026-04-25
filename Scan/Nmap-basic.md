@@ -1,9 +1,14 @@
 ## Nmap Scan Results
 
+## Overview
+An initial Nmap scan was conducted to identify open ports and active services on the target system.
 **Target:** 192.168.56.101
 **Scan Type:** nmap -sV
 
 ---
+
+## Command Breakdown
+- `-sV` -> Detects service versions
 
 ### Open Ports
 
