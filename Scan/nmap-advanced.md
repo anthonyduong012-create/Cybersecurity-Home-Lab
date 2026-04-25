@@ -1,0 +1,194 @@
+## Advanced Nmap Scan
+
+## Overview
+A more detailed Nmap scan was performed to gather additional information about the system to identify potential vulnerabilities.
+
+**Target:** 192.168.56.101
+**Scan Type:** nmap -sC -sV -A
+
+---
+
+## Command Breakdown
+- `-sC` -> Runs default Nmap scripts for enumeration
+- `-sV` -> Detects service versions
+- `-A` -> Enables OS detection, script scanning, and traceroute
+
+---
+
+### Key Findings
+
+- FTP allows **anoymous logins**, which can possibly expose senesitive files.
+- FTP service (vsftpd 2.3.4) is associated with a known backdoor vulnerability.
+-  SMTP supports outdated **SSLv2 and has weak ciphers**, which indicates outdated and insecure encryption.
+-  DNS server shows its version information (bind.version: 9.4.2), potentially giving additional information to attackers.
+-  HTTP service exposes server details (Apache 2.2.8), whiiich can be used to identify known exploits
+-  SMB service has **message signing disabled**, making the system vulnerable to man-in-the-middle attacks.
+-  Multiple **insecure remote access services** are enabled (Telnet, rlogin, rsh), which transmit plaintext data.
+-  Database services (MySQL and PostgreSQL) are accessible and may allow credential-based attacks.
+-  VNC service is exposed, allowing for potental remote desktop access.
+-  IRC servcice (UnrealIRCd) is kown to have vulnerabilities.
+-  OS detection reveals and **outdated Linux kernel (2.6.9 - 2.6.33)**, which may contain known vulnerabilities.
+
+### Observations
+
+---
+
+## Raw Scan Output
+
+```bash
+
+┌──(kali㉿kali)-[~]
+└─$ nmap -sC -sV -A 192.168.56.101
+Starting Nmap 7.98 ( https://nmap.org ) at 2026-04-24 23:32 -0400
+mass_dns: warning: Unable to determine any DNS servers. Reverse DNS is disabled. Try using --system-dns or specify valid servers with --dns-servers
+Nmap scan report for 192.168.56.101
+Host is up (0.0064s latency).
+Not shown: 977 closed tcp ports (reset)
+PORT     STATE SERVICE     VERSION
+21/tcp   open  ftp         vsftpd 2.3.4
+|_ftp-anon: Anonymous FTP login allowed (FTP code 230)
+| ftp-syst: 
+|   STAT: 
+| FTP server status:
+|      Connected to 192.168.56.102
+|      Logged in as ftp
+|      TYPE: ASCII
+|      No session bandwidth limit
+|      Session timeout in seconds is 300
+|      Control connection is plain text
+|      Data connections will be plain text
+|      vsFTPd 2.3.4 - secure, fast, stable
+|_End of status
+22/tcp   open  ssh         OpenSSH 4.7p1 Debian 8ubuntu1 (protocol 2.0)
+| ssh-hostkey: 
+|   1024 60:0f:cf:e1:c0:5f:6a:74:d6:90:24:fa:c4:d5:6c:cd (DSA)
+|_  2048 56:56:24:0f:21:1d:de:a7:2b:ae:61:b1:24:3d:e8:f3 (RSA)
+23/tcp   open  telnet      Linux telnetd
+25/tcp   open  smtp        Postfix smtpd
+| sslv2: 
+|   SSLv2 supported
+|   ciphers: 
+|     SSL2_DES_192_EDE3_CBC_WITH_MD5
+|     SSL2_RC2_128_CBC_WITH_MD5
+|     SSL2_RC4_128_WITH_MD5
+|     SSL2_RC4_128_EXPORT40_WITH_MD5
+|     SSL2_RC2_128_CBC_EXPORT40_WITH_MD5
+|_    SSL2_DES_64_CBC_WITH_MD5
+|_ssl-date: 2026-04-25T03:32:55+00:00; -5s from scanner time.
+|_smtp-commands: metasploitable.localdomain, PIPELINING, SIZE 10240000, VRFY, ETRN, STARTTLS, ENHANCEDSTATUSCODES, 8BITMIME, DSN
+| ssl-cert: Subject: commonName=ubuntu804-base.localdomain/organizationName=OCOSA/stateOrProvinceName=There is no such thing outside US/countryName=XX
+| Not valid before: 2010-03-17T14:07:45
+|_Not valid after:  2010-04-16T14:07:45
+53/tcp   open  domain      ISC BIND 9.4.2
+| dns-nsid: 
+|_  bind.version: 9.4.2
+80/tcp   open  http        Apache httpd 2.2.8 ((Ubuntu) DAV/2)
+|_http-server-header: Apache/2.2.8 (Ubuntu) DAV/2
+|_http-title: Metasploitable2 - Linux
+111/tcp  open  rpcbind     2 (RPC #100000)
+| rpcinfo: 
+|   program version    port/proto  service
+|   100000  2            111/tcp   rpcbind
+|   100000  2            111/udp   rpcbind
+|   100003  2,3,4       2049/tcp   nfs
+|   100003  2,3,4       2049/udp   nfs
+|   100005  1,2,3      34080/udp   mountd
+|   100005  1,2,3      42991/tcp   mountd
+|   100021  1,3,4      47836/udp   nlockmgr
+|   100021  1,3,4      60787/tcp   nlockmgr
+|   100024  1          33454/udp   status
+|_  100024  1          46477/tcp   status
+139/tcp  open  netbios-ssn Samba smbd 3.X - 4.X (workgroup: WORKGROUP)
+445/tcp  open  netbios-ssn Samba smbd 3.0.20-Debian (workgroup: WORKGROUP)
+512/tcp  open  exec        netkit-rsh rexecd
+513/tcp  open  login
+514/tcp  open  shell       Netkit rshd
+1099/tcp open  java-rmi    GNU Classpath grmiregistry
+1524/tcp open  bindshell   Metasploitable root shell
+2049/tcp open  nfs         2-4 (RPC #100003)
+2121/tcp open  ftp         ProFTPD 1.3.1
+3306/tcp open  mysql       MySQL 5.0.51a-3ubuntu5
+| mysql-info: 
+|   Protocol: 10
+|   Version: 5.0.51a-3ubuntu5
+|   Thread ID: 8
+|   Capabilities flags: 43564
+|   Some Capabilities: Speaks41ProtocolNew, SupportsCompression, SwitchToSSLAfterHandshake, Support41Auth, LongColumnFlag, ConnectWithDatabase, SupportsTransactions
+|   Status: Autocommit
+|_  Salt: 71.2P|Am"\-f?DyU}50/
+5432/tcp open  postgresql  PostgreSQL DB 8.3.0 - 8.3.7
+|_ssl-date: 2026-04-25T03:32:55+00:00; -5s from scanner time.
+| ssl-cert: Subject: commonName=ubuntu804-base.localdomain/organizationName=OCOSA/stateOrProvinceName=There is no such thing outside US/countryName=XX
+| Not valid before: 2010-03-17T14:07:45
+|_Not valid after:  2010-04-16T14:07:45
+5900/tcp open  vnc         VNC (protocol 3.3)
+| vnc-info: 
+|   Protocol version: 3.3
+|   Security types: 
+|_    VNC Authentication (2)
+6000/tcp open  X11         (access denied)
+6667/tcp open  irc         UnrealIRCd
+8009/tcp open  ajp13       Apache Jserv (Protocol v1.3)
+|_ajp-methods: Failed to get a valid response for the OPTION request
+8180/tcp open  http        Apache Tomcat/Coyote JSP engine 1.1
+|_http-favicon: Apache Tomcat
+|_http-title: Apache Tomcat/5.5
+|_http-server-header: Apache-Coyote/1.1
+MAC Address: 08:00:27:7E:1A:33 (Oracle VirtualBox virtual NIC)
+Device type: general purpose
+Running: Linux 2.6.X
+OS CPE: cpe:/o:linux:linux_kernel:2.6
+OS details: Linux 2.6.9 - 2.6.33
+Network Distance: 1 hop
+Service Info: Hosts:  metasploitable.localdomain, irc.Metasploitable.LAN; OSs: Unix, Linux; CPE: cpe:/o:linux:linux_kernel
+
+Host script results:
+| smb-os-discovery: 
+|   OS: Unix (Samba 3.0.20-Debian)
+|   Computer name: metasploitable
+|   NetBIOS computer name: 
+|   Domain name: localdomain
+|   FQDN: metasploitable.localdomain
+|_  System time: 2026-04-24T23:32:46-04:00
+| smb-security-mode: 
+|   account_used: guest
+|   authentication_level: user
+|   challenge_response: supported
+|_  message_signing: disabled (dangerous, but default)
+|_smb2-time: Protocol negotiation failed (SMB2)
+|_nbstat: NetBIOS name: METASPLOITABLE, NetBIOS user: <unknown>, NetBIOS MAC: <unknown> (unknown)
+|_clock-skew: mean: 59m55s, deviation: 2h00m00s, median: -5s
+
+TRACEROUTE
+HOP RTT     ADDRESS
+1   6.42 ms 192.168.56.101
+
+OS and Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 24.08 seconds
+                                                                             
+┌──(kali㉿kali)-[~]
+└─$ >....                                                                    
+
+Host script results:
+| smb-os-discovery: 
+|   OS: Unix (Samba 3.0.20-Debian)
+|   Computer name: metasploitable
+|   NetBIOS computer name: 
+|   Domain name: localdomain
+|   FQDN: metasploitable.localdomain
+|_  System time: 2026-04-24T23:32:46-04:00
+| smb-security-mode: 
+|   account_used: guest
+|   authentication_level: user
+|   challenge_response: supported
+|_  message_signing: disabled (dangerous, but default)
+|_smb2-time: Protocol negotiation failed (SMB2)
+|_nbstat: NetBIOS name: METASPLOITABLE, NetBIOS user: <unknown>, NetBIOS MAC: <unknown> (unknown)
+|_clock-skew: mean: 59m55s, deviation: 2h00m00s, median: -5s
+
+TRACEROUTE
+HOP RTT     ADDRESS
+1   6.42 ms 192.168.56.101
+
+OS and Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 24.08 seconds
