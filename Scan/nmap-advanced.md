@@ -17,17 +17,17 @@ A more detailed Nmap scan was performed to gather additional information about t
 
 ### Key Findings
 
-- FTP allows **anoymous logins**, which can possibly expose senesitive files.
+- FTP allows **anonymous logins**, which can possibly expose sensitive files.
 - FTP service (vsftpd 2.3.4) is associated with a known backdoor vulnerability.
 -  SMTP supports outdated **SSLv2 and has weak ciphers**, which indicates outdated and insecure encryption.
 -  DNS server shows its version information (bind.version: 9.4.2), potentially giving additional information to attackers.
--  HTTP service exposes server details (Apache 2.2.8), whiiich can be used to identify known exploits
+-  HTTP service exposes server details (Apache 2.2.8), which can be used to identify known exploits
 -  SMB service has **message signing disabled**, making the system vulnerable to man-in-the-middle attacks.
 -  Multiple **insecure remote access services** are enabled (Telnet, rlogin, rsh), which transmit plaintext data.
 -  Database services (MySQL and PostgreSQL) are accessible and may allow credential-based attacks.
--  VNC service is exposed, allowing for potental remote desktop access.
--  IRC servcice (UnrealIRCd) is kown to have vulnerabilities.
--  OS detection reveals and **outdated Linux kernel (2.6.9 - 2.6.33)**, which may contain known vulnerabilities.
+-  VNC service is exposed, allowing for potential remote desktop access.
+-  IRC service (UnrealIRCd) is known to have vulnerabilities.
+-  OS detection reveals an **outdated Linux kernel (2.6.9 - 2.6.33)**, which may contain known vulnerabilities.
 
 ---
 
