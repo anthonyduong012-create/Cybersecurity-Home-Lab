@@ -29,6 +29,8 @@ A more detailed Nmap scan was performed to gather additional information about t
 -  IRC servcice (UnrealIRCd) is kown to have vulnerabilities.
 -  OS detection reveals and **outdated Linux kernel (2.6.9 - 2.6.33)**, which may contain known vulnerabilities.
 
+---
+
 ### Observations
 
 ---
