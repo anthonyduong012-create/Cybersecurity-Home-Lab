@@ -11,6 +11,8 @@ An initial Nmap scan was conducted to identify open ports and active services on
 ## Command Breakdown
 - `-sV` -> Detects service versions
 
+---
+
 ### Open Ports
 
 | Port | Service | Version/Name | Description |
