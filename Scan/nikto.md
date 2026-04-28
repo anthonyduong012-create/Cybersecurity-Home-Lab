@@ -1,7 +1,7 @@
 ## nikto Web Scan Results
 
 ## Overview
-A Nikto scan was perfoormed to identify potential web server vulnerabilities, misconfigurations, and exposed files on the target system.
+A Nikto scan was performed to identify potential web server vulnerabilities, misconfigurations, and exposed files on the target system.
 
 ---
 **Target:** http://192.168.56.101
