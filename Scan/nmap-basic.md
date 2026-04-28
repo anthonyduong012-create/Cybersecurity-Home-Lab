@@ -1,4 +1,4 @@
-## Nmap Scan Results
+## nmap Scan Results
 
 ## Overview
 An initial Nmap scan was conducted to identify open ports and active services on the target system.
