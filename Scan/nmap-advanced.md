@@ -1,7 +1,7 @@
-## Advanced Nmap Scan
+## Advanced nmap Scan
 
 ## Overview
-A more detailed Nmap scan was performed to gather additional information about the system to identify potential vulnerabilities.
+A more detailed nmap scan was performed to gather additional information about the system to identify potential vulnerabilities.
 
 **Target:** 192.168.56.101
 **Scan Type:** nmap -sC -sV -A
