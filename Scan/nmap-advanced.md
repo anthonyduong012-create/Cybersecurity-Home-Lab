@@ -33,6 +33,11 @@ A more detailed Nmap scan was performed to gather additional information about t
 
 ### Observations
 
+- The advanced scan revealed significantly more detail than the inital scan, it automatically pointed at misconfigurations and vulnerabilities in the system.
+- Having both anonymous FTP and using a weak encryption cipher(SSLv2) indicates the system doesn't follow proper security practices.
+- The SMB configuration weaknesses and multiple exposed services increase the likelihood of a successful exploitation happening.
+- The system is clearly intentionally configured with multiple outdated services and misconfigurations to make it a deliberately vulnerable testing environment suitable for penetration testing.
+
 ---
 
 ## Raw Scan Output
